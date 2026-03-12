@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Sort Lab - Divide & Conquer Visualizer</title>
+    <link rel="stylesheet" href="/styles.css">
+    <!-- KaTeX for math formatting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>MERGE SORT LAB</h1>
+                <p>Divide & Conquer Visualizer</p>
+            </div>
+            <nav class="algo-list">
+                <div class="algo-item active">
+                    <span class="dot"></span>
+                    Merge Sort
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                v1.0.0
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- TOP CONTROL BAR -->
+            <header class="control-bar">
+                <div class="input-group">
+                    <label for="array-input">Array Input</label>
+                    <input type="text" id="array-input" placeholder="e.g. 4, 91, 1, 45, 67, 32, 38">
+                </div>
+                <div class="button-group">
+                    <button id="btn-random" title="Generate Random Array">Random</button>
+                    <div class="divider"></div>
+                    <button id="btn-run" class="btn-primary">Run</button>
+                    <button id="btn-pause" disabled>Pause</button>
+                    <button id="btn-step">Step</button>
+                    <button id="btn-reset">Reset</button>
+                </div>
+                <div class="slider-group">
+                    <label>Speed: <span id="speed-val">1.0</span>x</label>
+                    <input type="range" id="speed-slider" min="0.25" max="3" step="0.25" value="1">
+                </div>
+                <div class="step-counter">
+                    Step: <span id="current-step">0</span> / <span id="total-steps">0</span>
+                </div>
+            </header>
+
+            <div class="workspace">
+                <!-- CENTER PANEL -->
+                <section class="center-panel">
+                    <div class="tabs">
+                        <button class="tab-link active" data-tab="visualization">Visualization</button>
+                        <button class="tab-link" data-tab="recursion-tree">Recursion Tree</button>
+                        <button class="tab-link" data-tab="statistics">Statistics</button>
+                    </div>
+                    <div class="tab-content active" id="visualization">
+                        <div id="viz-container" class="viz-container"></div>
+                    </div>
+                    <div class="tab-content" id="recursion-tree">
+                        <div id="tree-container" class="tree-container"></div>
+                    </div>
+                    <div class="tab-content" id="statistics">
+                        <div class="stats-grid">
+                            <div class="stats-card">
+                                <h3>Comparisons</h3>
+                                <p id="stat-comparisons">0</p>
+                            </div>
+                            <div class="stats-card">
+                                <h3>Array Writes</h3>
+                                <p id="stat-writes">0</p>
+                            </div>
+                            <div class="stats-card">
+                                <h3>Recursive Calls</h3>
+                                <p id="stat-calls">0</p>
+                            </div>
+                        </div>
+                        <div class="stats-explanation">
+                            <h3>Complexity Note</h3>
+                            <p>Divide and Conquer algorithms typically have time complexity O(n log n). Merge Sort recursively divides the array and merges sorted halves.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RIGHT SIDE PANEL -->
+                <aside class="right-panel">
+                    <div class="tabs">
+                        <button class="tab-link-right active" data-tab="explain">Explain</button>
+                        <button class="tab-link-right" data-tab="math">Math</button>
+                        <button class="tab-link-right" data-tab="code">Code</button>
+                        <button class="tab-link-right" data-tab="theory">Theory</button>
+                    </div>
+                    <div class="tab-content-right active" id="explain">
+                        <div class="explain-box">
+                            <h2 id="explain-phase">READY</h2>
+                            <p id="explain-msg">Enter an array or click Random to begin.</p>
+                        </div>
+                    </div>
+                    <div class="tab-content-right" id="math">
+                        <div class="math-box">
+                            <h3>Recurrence Relation</h3>
+                            <div id="math-recurrence"></div>
+                            <h3>Time Complexity</h3>
+                            <div id="math-time"></div>
+                            <h3>Space Complexity</h3>
+                            <div id="math-space"></div>
+                        </div>
+                    </div>
+                    <div class="tab-content-right" id="code">
+                        <pre id="pseudocode">
+<span id="line-1">function mergeSort(arr):</span>
+<span id="line-2">  if length(arr) ≤ 1:</span>
+<span id="line-3">    return arr</span>
+<span id="line-4">  mid = length(arr) / 2</span>
+<span id="line-5">  left = mergeSort(arr[0:mid])</span>
+<span id="line-6">  right = mergeSort(arr[mid:n])</span>
+<span id="line-7">  return merge(left, right)</span>
+                        </pre>
+                    </div>
+                    <div class="tab-content-right" id="theory">
+                        <div class="theory-box">
+                            <p>Merge Sort is a Divide & Conquer algorithm.</p>
+                            <h4>Steps:</h4>
+                            <ol>
+                                <li>Divide the array into two halves</li>
+                                <li>Recursively sort both halves</li>
+                                <li>Merge the sorted halves</li>
+                            </ol>
+                            <h4>Advantages:</h4>
+                            <ul>
+                                <li>Stable sorting algorithm</li>
+                                <li>Guaranteed O(n log n)</li>
+                            </ul>
+                            <h4>Disadvantages:</h4>
+                            <ul>
+                                <li>Requires additional memory</li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
